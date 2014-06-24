@@ -2,8 +2,6 @@
   "name":            "rewind-bbs-node",
   "version":         "0.0.1",
   "author":          "WhiteTrefoil <whitetrefoil@gmail.com",
-  "bin":             "./bin/rewind-bbs-node",
-  "main":            "./lib/rewind-bbs-node.js",
   "repository":      {
     "type": "git",
     "url":  "https://github.com/whitetrefoil/rewind-bbs-node.git"
@@ -16,6 +14,13 @@
     "restful",
     "bbs"
   ],
+  "bin":             "./bin/rewind-bbs-node",
+  "main":            "./lib/index.js",
+  "scripts":         {
+    "start":      "node bin/rewind-bbs-node",
+    "test":       "grunt test",
+    "prepublish": "grunt build"
+  },
   "devDependencies": {
     "chai":                 "^1.9.1",
     "coffee-script":        "^1.7.1",
