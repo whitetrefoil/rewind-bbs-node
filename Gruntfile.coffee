@@ -32,6 +32,11 @@ module.exports = (grunt) ->
         options:
           atBegin: true
           event: [ 'deleted' ]
+      doc:
+        files: [ 'src/**/*.+(coffee|litcoffee)' ]
+        tasks: [ 'doc' ]
+        options:
+          atBegin: true
     mkdir:
       test:
         options:
