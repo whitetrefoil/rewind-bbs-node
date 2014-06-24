@@ -42,6 +42,7 @@ module.exports = (grunt) ->
         src: [ './src/**/*.+(coffee|litcoffee)' ]
       options:
         output: 'doc'
+        layout: 'linear'
     concurrent:
       build: [ 'compile', 'doc' ]
 
