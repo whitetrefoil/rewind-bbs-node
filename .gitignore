@@ -1,0 +1,43 @@
+# Npm
+node_modules/
+
+# Docco
+-p/
+
+# JetBrains
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# Eclipse
+.project
+
+# Windows
+Thumbs.db
+
+# Common DB
+*.sqlite3
+*.sqlite
+*.db
+
+# Common Logs
+*.log
+log/
+logs/
+
+# Common Temp File
+tmp/
+temp/
+~*
+
+# Common Backup
+*.bak
+*.orig
+*.REMOTE
+*.LOCAL
+*.BASE
+*.swp
+
+# Build Folder
+build/
