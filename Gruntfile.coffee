@@ -6,8 +6,9 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     clean:
-      compile: [ './lib' ]
-      doc: [ './doc' ]
+      compile: [ 'lib' ]
+      doc: [ 'doc' ]
+      coverage: [ 'coverage' ]
     coffee:
       compile:
         files: [
@@ -31,12 +32,25 @@ module.exports = (grunt) ->
         options:
           atBegin: true
           event: [ 'deleted' ]
-    mochaTest:
-      test:
-        src: [ './test/**/*Spec.+(coffee|litcoffee)' ]
+    mkdir:
+      coverage:
+        options:
+          create: [ 'coverage' ]
+    mochacli:
+      spec:
+        options:
+          reporter: 'spec'
+      nyan:
+        options:
+          reporter: 'nyan'
+      coverage:
+        options:
+          reporter: 'html-cov'
+          save: 'coverage/index.html'
       options:
-        require: 'coffee-script/register'
-        reporter: 'nyan'
+        files: [ 'test/**/*Spec.+(coffee|litcoffee)' ]
+        compilers: [ 'coffee:coffee-script/register' ]
+        require: [ 'coffee-script/register' ]
     docco:
       compile:
         src: [ './src/**/*.+(coffee|litcoffee)' ]
@@ -45,13 +59,15 @@ module.exports = (grunt) ->
         layout: 'linear'
     concurrent:
       build: [ 'compile', 'doc' ]
+      test: [ 'mochacli:spec', 'coverage' ]
 
   # Package Tasks
   # -----
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-mocha-test'
+  grunt.loadNpmTasks 'grunt-mkdir'
+  grunt.loadNpmTasks 'grunt-mocha-cli'
   grunt.loadNpmTasks 'grunt-docco'
   grunt.loadNpmTasks 'grunt-concurrent'
 
@@ -60,4 +76,6 @@ module.exports = (grunt) ->
   grunt.registerTask 'compile', [ 'clean:compile', 'coffee' ]
   grunt.registerTask 'doc', [ 'clean:doc', 'docco' ]
   grunt.registerTask 'build', [ 'concurrent:build' ]
-  grunt.registerTask 'test', [ 'compile', 'mochaTest' ]
+  grunt.registerTask 'coverage', [ 'clean:coverage', 'mkdir:coverage', 'mochacli:coverage' ]
+  grunt.registerTask 'nyan', [ 'mochacli:nyan' ]
+  grunt.registerTask 'test', [ 'concurrent:test' ]
