@@ -41,3 +41,6 @@ temp/
 
 # Build Folder
 build/
+
+# Test Status Reports
+coverage/
