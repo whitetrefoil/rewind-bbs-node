@@ -18,8 +18,7 @@
   "main":            "./lib/index.js",
   "scripts":         {
     "start":      "node bin/rewind-bbs-node",
-    "test":       "grunt test",
-    "prepublish": "grunt build"
+    "test":       "grunt test"
   },
   "config":          {
     "blanket": {
