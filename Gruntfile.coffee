@@ -20,9 +20,14 @@ module.exports = (grunt) ->
           extDot: 'last'
         ]
     watch:
-      all:
+      src:
         files: [ 'src/**/*.+(coffee|litcoffee)' ]
         tasks: [ 'concurrent:all' ]
+        options:
+          atBegin: true
+      test:
+        files: [ 'test/**/*Spec.+(coffee|litcoffee|js)' ]
+        tasks: [ 'concurrent:test' ]
         options:
           atBegin: true
     mkdir:

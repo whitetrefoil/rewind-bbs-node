@@ -11,9 +11,18 @@ fs = require 'fs-extra'
 
 # Get configurations by loading a config file.
 
-getConfig = (path, callback) ->
-  fs.readJson path, (err, json) ->
-    callback?(json) unless err?
+readConfigFileSync = (path) -> fs.readJsonSync path
 
+# Get default config.
+
+getDefaultConfigSync = () ->
+  readConfigFileSync 'config/config.default.json'
+
+
+# Main function, get all possible config files then combine the config.
+
+getConfig = ->
+  getDefaultConfigSync()
+  # TODO
 
 module.exports = getConfig

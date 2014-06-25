@@ -17,8 +17,8 @@
   "bin":             "./bin/rewind-bbs-node",
   "main":            "./lib/index.js",
   "scripts":         {
-    "start":      "node bin/rewind-bbs-node",
-    "test":       "grunt test"
+    "start": "node bin/rewind-bbs-node",
+    "test":  "grunt test"
   },
   "config":          {
     "blanket": {

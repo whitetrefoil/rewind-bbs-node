@@ -71,11 +71,32 @@ fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs-ex
 
         
           <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">getConfig</span> = <span class="hljs-params">(path, callback)</span> -&gt;</span>
-  fs.readJson path, <span class="hljs-function"><span class="hljs-params">(err, json)</span> -&gt;</span>
-    callback?(json) <span class="hljs-keyword">unless</span> err?
+<span class="hljs-function"><span class="hljs-title">readConfigFileSync</span> = <span class="hljs-params">(path)</span> -&gt;</span> fs.readJsonSync path</pre></div>
+        
+      
+        
+        <p>Get default config.</p>
 
+        
+          <div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-title">getDefaultConfigSync</span> = <span class="hljs-params">()</span> -&gt;</span>
+  readConfigFileSync <span class="hljs-string">'config/config.default.json'</span></pre></div>
+        
+      
+        
+        <p>Main function, get all possible config files then combine the config.</p>
 
+        
+          <div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-title">getConfig</span> = -&gt;</span>
+  getDefaultConfigSync()</pre></div>
+        
+      
+        
+        <p>TODO</p>
+
+        
+          <div class='highlight'><pre>
 <span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = getConfig</pre></div>
         
       
