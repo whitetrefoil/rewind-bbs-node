@@ -50,7 +50,7 @@ module.exports = (grunt) ->
       options:
         files: [ 'test/**/*Spec.+(coffee|litcoffee)' ]
         compilers: [ 'coffee:coffee-script/register' ]
-        require: [ 'coffee-script/register' ]
+        require: [ 'coffee-script/register', 'blanket' ]
     docco:
       compile:
         src: [ './src/**/*.+(coffee|litcoffee)' ]

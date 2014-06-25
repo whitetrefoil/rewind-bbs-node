@@ -1,49 +1,56 @@
 {
-  "name": "rewind-bbs-node",
-  "version": "0.0.1",
-  "author": "WhiteTrefoil <whitetrefoil@gmail.com",
-  "repository": {
+  "name":            "rewind-bbs-node",
+  "version":         "0.0.1",
+  "author":          "WhiteTrefoil <whitetrefoil@gmail.com",
+  "repository":      {
     "type": "git",
-    "url": "https://github.com/whitetrefoil/rewind-bbs-node.git"
+    "url":  "https://github.com/whitetrefoil/rewind-bbs-node.git"
   },
-  "bugs": {
+  "bugs":            {
     "url": "https://github.com/whitetrefoil/rewind-bbs-node/issues"
   },
-  "keywords": [
+  "keywords":        [
     "rewind",
     "restful",
     "bbs"
   ],
-  "bin": "./bin/rewind-bbs-node",
-  "main": "./lib/index.js",
-  "scripts": {
-    "start": "node bin/rewind-bbs-node",
-    "test": "grunt test",
+  "bin":             "./bin/rewind-bbs-node",
+  "main":            "./lib/index.js",
+  "scripts":         {
+    "start":      "node bin/rewind-bbs-node",
+    "test":       "grunt test",
     "prepublish": "grunt build"
   },
-  "devDependencies": {
-    "blanket": "^1.1.6",
-    "chai": "^1.9.1",
-    "coffee-script": "^1.7.1",
-    "docco": "^0.6.3",
-    "grunt": "^0.4.5",
-    "grunt-concurrent": "^0.5.0",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-docco": "^0.3.3",
-    "grunt-mkdir": "^0.1.1",
-    "grunt-mocha-cli": "^1.9.0",
-    "sinon-chai": "^2.5.0"
+  "config":          {
+    "blanket": {
+      "pattern":          "src",
+      "loader":           "./node-loaders/coffee-script",
+      "data-cover-never": "node_modules"
+    }
   },
-  "dependencies": {
-    "colors": "^0.6.2",
+  "devDependencies": {
+    "blanket":              "^1.1.6",
+    "chai":                 "^1.9.1",
+    "coffee-script":        "^1.7.1",
+    "docco":                "^0.6.3",
+    "grunt":                "^0.4.5",
+    "grunt-concurrent":     "^0.5.0",
+    "grunt-contrib-clean":  "^0.5.0",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-watch":  "^0.6.1",
+    "grunt-docco":          "^0.3.3",
+    "grunt-mkdir":          "^0.1.1",
+    "grunt-mocha-cli":      "^1.9.0",
+    "sinon-chai":           "^2.5.0"
+  },
+  "dependencies":    {
+    "colors":   "^0.6.2",
     "fs-extra": "^0.9.1",
-    "lodash": "^2.4.1",
+    "lodash":   "^2.4.1",
     "mongoose": "^3.8.12",
     "passport": "^0.2.0",
-    "restify": "^2.8.1"
+    "restify":  "^2.8.1"
   },
-  "preferGlobal": true,
-  "private": true
+  "preferGlobal":    true,
+  "private":         true
 }
