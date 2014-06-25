@@ -20,21 +20,9 @@ module.exports = (grunt) ->
           extDot: 'last'
         ]
     watch:
-      changed:
+      all:
         files: [ 'src/**/*.+(coffee|litcoffee)' ]
-        tasks: [ 'coffee' ]
-        options:
-          atBegin: true
-          event: [ 'changed', 'added' ]
-      deleted:
-        files: [ 'src/**/*.+(coffee|litcoffee)' ]
-        tasks: [ 'compile' ]
-        options:
-          atBegin: true
-          event: [ 'deleted' ]
-      doc:
-        files: [ 'src/**/*.+(coffee|litcoffee)' ]
-        tasks: [ 'doc' ]
+        tasks: [ 'concurrent:all' ]
         options:
           atBegin: true
     mkdir:
@@ -68,6 +56,7 @@ module.exports = (grunt) ->
     concurrent:
       build: [ 'compile', 'doc' ]
       test: [ 'mochacli:spec', 'coverage' ]
+      all: [ 'compile', 'doc', 'mochacli:spec', 'coverage' ]
 
   # Package Tasks
   # -----
