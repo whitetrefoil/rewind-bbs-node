@@ -33,6 +33,9 @@ module.exports = (grunt) ->
           atBegin: true
           event: [ 'deleted' ]
     mkdir:
+      test:
+        options:
+          create: [ 'test' ]
       coverage:
         options:
           create: [ 'coverage' ]
@@ -76,6 +79,6 @@ module.exports = (grunt) ->
   grunt.registerTask 'compile', [ 'clean:compile', 'coffee' ]
   grunt.registerTask 'doc', [ 'clean:doc', 'docco' ]
   grunt.registerTask 'build', [ 'concurrent:build' ]
-  grunt.registerTask 'coverage', [ 'clean:coverage', 'mkdir:coverage', 'mochacli:coverage' ]
-  grunt.registerTask 'nyan', [ 'mochacli:nyan' ]
-  grunt.registerTask 'test', [ 'concurrent:test' ]
+  grunt.registerTask 'coverage', [ 'clean:coverage', 'mkdir:test', 'mkdir:coverage', 'mochacli:coverage' ]
+  grunt.registerTask 'nyan', [ 'mkdir:test', 'mochacli:nyan' ]
+  grunt.registerTask 'test', [ 'mkdir:test', 'concurrent:test' ]
