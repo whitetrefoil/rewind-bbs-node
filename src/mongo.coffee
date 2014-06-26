@@ -16,7 +16,7 @@
 # Use mongoose to manager MongoDB.
 
 mongoose = require 'mongoose'
-connection = mongoose.connect 'mongodb://localhost'
+connection = mongoose.connect 'mongodb://localhost/test'
 
 #### Exports
 

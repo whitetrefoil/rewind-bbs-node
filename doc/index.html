@@ -114,8 +114,15 @@
 
         
           <div class='highlight'><pre><span class="hljs-function"><span class="hljs-title">index</span> = -&gt;</span>
-  <span class="hljs-built_in">console</span>.log mongoose.models
-  mongo.disconnect()</pre></div>
+  Post = mongoose.model <span class="hljs-string">'Post'</span>
+  post = <span class="hljs-keyword">new</span> Post
+    <span class="hljs-attribute">summary</span>: <span class="hljs-string">'Test Post'</span>
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'This is just a test.'</span>
+    <span class="hljs-attribute">author</span>: <span class="hljs-string">'Fran'</span>
+  post.save<span class="hljs-function"> -&gt;</span>
+    Post.find<span class="hljs-function"><span class="hljs-params">()</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(args...)</span> -&gt;</span>
+      <span class="hljs-built_in">console</span>.log args
+      mongo.disconnect()</pre></div>
         
       
         

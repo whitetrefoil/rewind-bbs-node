@@ -23,8 +23,15 @@ require './models'
 
 # The main function
 index = ->
-  console.log mongoose.models
-  mongo.disconnect()
+  Post = mongoose.model 'Post'
+  post = new Post
+    summary: 'Test Post'
+    content: 'This is just a test.'
+    author: 'Fran'
+  post.save ->
+    Post.find().exec (args...) ->
+      console.log args
+      mongo.disconnect()
 
 #### Exports
 
