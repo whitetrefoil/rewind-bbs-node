@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>mongo.coffee</title>
+  <title>server.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -13,7 +13,7 @@
 
       <div class="header">
         
-          <h1>mongo.coffee</h1>
+          <h1>server.coffee</h1>
         
 
         
@@ -82,8 +82,7 @@
         
       
         
-        <p>This is an initializer of MongoDB (via mongoose).
-Must be required before any model.</p>
+        <p>This module is used to initialized the server (using restify)</p>
 
         
       
@@ -93,33 +92,40 @@ Must be required before any model.</p>
         
       
         
-        <p>‘use strict’ always first :)</p>
+        <p>‘use strict’ always first ;)</p>
 
         
-          <div class='highlight'><pre>
-<span class="hljs-string">'use strict'</span></pre></div>
+          <div class='highlight'><pre><span class="hljs-string">'use strict'</span></pre></div>
         
       
         
         <h3 id="dependencies">Dependencies</h3>
 
         
+          <div class='highlight'><pre>
+restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'restify'</span></pre></div>
+        
       
         
-        <p>Use mongoose to manager MongoDB.</p>
+        <p>Create the server here.
+Later I will add code to load config.</p>
 
         
           <div class='highlight'><pre>
-mongoose = <span class="hljs-built_in">require</span> <span class="hljs-string">'mongoose'</span>
-connection = mongoose.connect <span class="hljs-string">'mongodb://localhost/test'</span></pre></div>
+server = restify.createServer
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'RewindBBS'</span></pre></div>
         
       
         
         <h3 id="exports">Exports</h3>
 
         
-          <div class='highlight'><pre>
-<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = connection</pre></div>
+      
+        
+        <p>Export a created but not started server instance.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = server</pre></div>
         
       
       <div class="fleur">h</div>

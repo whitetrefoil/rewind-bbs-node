@@ -49,6 +49,27 @@
                   </a>
                 </li>
               
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
             </ol>
           </div>
         
@@ -61,7 +82,7 @@
         
       
         
-        <p>This is the model definition of <code>Post</code>.</p>
+        <p>This is a API of post model</p>
 
         
       
@@ -83,36 +104,64 @@
 
         
           <div class='highlight'><pre>
-mongoose = <span class="hljs-built_in">require</span> <span class="hljs-string">'mongoose'</span></pre></div>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre></div>
         
       
         
-        <h3 id="schema-definition">Schema Definition</h3>
+        <p>require the mongoose initializer</p>
+
+        
+          <div class='highlight'><pre>mongo = <span class="hljs-built_in">require</span> <span class="hljs-string">'../mongo'</span></pre></div>
+        
+      
+        
+        <p>require the restify server.</p>
+
+        
+          <div class='highlight'><pre>restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'../server'</span></pre></div>
+        
+      
+        
+        <h3 id="api">API</h3>
 
         
           <div class='highlight'><pre>
-postSchema = <span class="hljs-keyword">new</span> mongoose.Schema
-  <span class="hljs-attribute">summary</span>: String
-  <span class="hljs-attribute">content</span>: String
-  <span class="hljs-attribute">author</span>: String</pre></div>
-        
-      
-        
-        <h3 id="model">Model</h3>
+restify.get <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  mongo.model<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'Post'</span>)</span>.<span class="hljs-title">find</span><span class="hljs-params">()</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, posts)</span> -&gt;</span>
+    res.charSet <span class="hljs-string">'utf-8'</span>
+    <span class="hljs-keyword">if</span> err?
+      res.send <span class="hljs-number">500</span>,
+        <span class="hljs-attribute">code</span>: <span class="hljs-number">500</span>
+        <span class="hljs-attribute">message</span>: <span class="hljs-string">'MongoDB failed.'</span>
+    <span class="hljs-keyword">else</span>
+      res.send <span class="hljs-number">200</span>, posts
+    next()
 
-        
-          <div class='highlight'><pre>mongoose.model <span class="hljs-string">'Post'</span>, postSchema</pre></div>
-        
-      
-        
-        <h3 id="exports">Exports</h3>
-
-        
-      
-        
-        <p>There’s no need to export anything.
-<code>mongoose</code> will handle all the required models.</p>
-
+restify.post <span class="hljs-string">'posts'</span>,  <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  reqBody = <span class="hljs-string">''</span>
+  req.setEncoding <span class="hljs-string">'utf8'</span>
+  req.<span class="hljs-literal">on</span> <span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">(chunk)</span> -&gt;</span> reqBody += chunk
+  req.<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>,<span class="hljs-function"> -&gt;</span>
+    <span class="hljs-keyword">try</span>
+      body = JSON.parse reqBody
+      Post = mongo.model(<span class="hljs-string">'Post'</span>)
+      post = <span class="hljs-keyword">new</span> Post(body)
+    <span class="hljs-keyword">catch</span> e
+      res.send <span class="hljs-number">400</span>,
+        <span class="hljs-attribute">code</span>: <span class="hljs-number">400</span>
+        <span class="hljs-attribute">message</span>: <span class="hljs-string">'The request body cannot be parsed as a legal JSON object.'</span>
+        <span class="hljs-attribute">error</span>: e.message
+      next()
+    post.save <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err?
+        res.send <span class="hljs-number">500</span>,
+          <span class="hljs-attribute">code</span>: <span class="hljs-number">500</span>
+          <span class="hljs-attribute">message</span>: <span class="hljs-string">'Failed to save into MongoDB.'</span>
+          <span class="hljs-attribute">error</span>: err
+        next()
+      <span class="hljs-keyword">else</span>
+        res.send <span class="hljs-number">201</span>, post
+        next()</pre></div>
         
       
       <div class="fleur">h</div>

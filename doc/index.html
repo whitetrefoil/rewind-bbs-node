@@ -49,6 +49,27 @@
                   </a>
                 </li>
               
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
             </ol>
           </div>
         
@@ -82,6 +103,9 @@
         <h3 id="dependencies">Dependencies</h3>
 
         
+          <div class='highlight'><pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre></div>
+        
       
         
         <p>require the mongoose initializer</p>
@@ -105,6 +129,21 @@
         
       
         
+        <p>require the restify server.</p>
+
+        
+          <div class='highlight'><pre>restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'./server'</span></pre></div>
+        
+      
+        
+        <p>require all routes.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">require</span> <span class="hljs-string">'./routes/misc/status'</span>
+<span class="hljs-built_in">require</span> <span class="hljs-string">'./routes/posts'</span></pre></div>
+        
+      
+        
         <h3 id="entrance">Entrance</h3>
 
         
@@ -114,7 +153,15 @@
 
         
           <div class='highlight'><pre><span class="hljs-function"><span class="hljs-title">index</span> = -&gt;</span>
-  Post = mongoose.model <span class="hljs-string">'Post'</span>
+  restify.listen <span class="hljs-number">2345</span>
+  util.log <span class="hljs-string">'Restify started on port 2345'</span></pre></div>
+        
+      
+        
+        <h1 id="-">#</h1>
+
+        
+          <div class='highlight'><pre>  Post = mongoose.model <span class="hljs-string">'Post'</span>
   post = <span class="hljs-keyword">new</span> Post
     <span class="hljs-attribute">summary</span>: <span class="hljs-string">'Test Post'</span>
     <span class="hljs-attribute">content</span>: <span class="hljs-string">'This is just a test.'</span>
@@ -123,6 +170,11 @@
     Post.find<span class="hljs-function"><span class="hljs-params">()</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(args...)</span> -&gt;</span>
       <span class="hljs-built_in">console</span>.log args
       mongo.disconnect()</pre></div>
+        
+      
+        
+        <h1 id="-">#</h1>
+
         
       
         
