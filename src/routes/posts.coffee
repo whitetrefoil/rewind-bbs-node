@@ -74,6 +74,24 @@ server.post 'posts', (req, res, next) ->
         res.send 201, post
         next()
 
+#### PUT
+server.put 'posts/:id', (req, res, next) ->
+  readReq req, (body) ->
+    id = req.params.id
+    Post.findById(id).exec (err, post) ->
+      if err?
+        next(new restify.InternalError('Failed to locate the post in MongoDB.'))
+      else if !post?
+        next(new restify.ResourceNotFoundError('Cannot find such post to update.'))
+      else
+        post.update(body).exec (err, numberAffected, raw) ->
+          if err?
+            next(new restify.InternalError('Failed to modify in MongoDB.'))
+          else
+            res.send 200, raw or post
+            next()
+
+
 #### Delete
 server.del 'posts/:id', (req, res, next) ->
   id = req.params.id

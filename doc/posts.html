@@ -202,6 +202,27 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         
       
         
+        <h3 id="put">PUT</h3>
+
+        
+          <div class='highlight'><pre>server.put <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  readReq req, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
+    id = req.params.id
+    Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err?
+        next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to locate the post in MongoDB.'</span>))
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !post?
+        next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Cannot find such post to update.'</span>))
+      <span class="hljs-keyword">else</span>
+        post.update<span class="hljs-function"><span class="hljs-params">(body)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, numberAffected, raw)</span> -&gt;</span>
+          <span class="hljs-keyword">if</span> err?
+            next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to modify in MongoDB.'</span>))
+          <span class="hljs-keyword">else</span>
+            res.send <span class="hljs-number">200</span>, raw <span class="hljs-keyword">or</span> post
+            next()</pre></div>
+        
+      
+        
         <h3 id="delete">Delete</h3>
 
         
