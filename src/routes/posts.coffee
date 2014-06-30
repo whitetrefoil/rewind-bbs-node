@@ -19,6 +19,23 @@ mongo = require '../mongo'
 # require the restify server.
 server = require '../server'
 
+
+#### Helpers
+
+# Will be moved to separated file later.
+
+readReq = (req, callback) ->
+  reqBody = ''
+  req.setEncoding 'utf8'
+  req.on 'data', (chunk) -> reqBody += chunk
+  req.on 'end', ->
+    try
+      body = JSON.parse reqBody
+    catch e
+      next(new restify.InvalidArgumentError('The request body cannot be parsed as a legal JSON object.'))
+    callback(body)?
+
+
 #### Used Models
 Post = mongo.model 'Post'
 
@@ -28,7 +45,6 @@ Post = mongo.model 'Post'
 server.get 'posts', (req, res, next) ->
   Post.find()
   .exec (err, posts) ->
-    res.charSet 'utf-8'
     if err?
       next(new restify.InternalError('MongoDB failed.'))
     else
@@ -39,7 +55,6 @@ server.get 'posts', (req, res, next) ->
 server.get 'posts/:id', (req, res, next) ->
   Post.findById(req.params.id)
   .exec (err, posts) ->
-    res.charSet 'utf-8'
     if err?
       next(new restify.InternalError('MongoDB failed.'))
     else if !posts?
@@ -50,15 +65,8 @@ server.get 'posts/:id', (req, res, next) ->
 
 #### Post
 server.post 'posts', (req, res, next) ->
-  reqBody = ''
-  req.setEncoding 'utf8'
-  req.on 'data', (chunk) -> reqBody += chunk
-  req.on 'end', ->
-    try
-      body = JSON.parse reqBody
-      post = new Post(body)
-    catch e
-      next(new restify.InvalidArgumentError('The request body cannot be parsed as a legal JSON object.'))
+  readReq req, (body) ->
+    post = new Post(body)
     post.save (err) ->
       if err?
         next(new restify.InternalError('MongoDB failed.'))
@@ -73,7 +81,7 @@ server.del 'posts/:id', (req, res, next) ->
     if err?
       next(new restify.InternalError('Failed to remove from MongoDB.'))
     else if !post?
-      next(new restify.ResourceNotFoundError('Cannot find such document to remove.'))
+      next(new restify.ResourceNotFoundError('Cannot find such post to remove.'))
     else
       Post.remove({ _id: post.id }).exec (err) ->
         if err?
