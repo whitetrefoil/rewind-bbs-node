@@ -33,6 +33,24 @@ restify.get 'posts', (req, res, next) ->
       res.send 200, posts
     next()
 
+restify.get 'posts/:id', (req, res, next) ->
+  model = mongo.model 'Post'
+  model.findById(req.params.id)
+  .exec (err, posts) ->
+    res.charSet 'utf-8'
+    if err?
+      res.send 500,
+        code: 500
+        message: 'MongoDB failed.'
+        error: err
+    else if !posts?
+      res.send 404,
+        code: 404
+    else
+      res.send 200, posts
+    next()
+
+##### Post
 restify.post 'posts',  (req, res, next) ->
   reqBody = ''
   req.setEncoding 'utf8'
