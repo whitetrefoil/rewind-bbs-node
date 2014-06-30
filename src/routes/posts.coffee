@@ -65,3 +65,19 @@ server.post 'posts', (req, res, next) ->
       else
         res.send 201, post
         next()
+
+#### Delete
+server.del 'posts/:id', (req, res, next) ->
+  id = req.params.id
+  Post.findById(id).exec (err, post) ->
+    if err?
+      next(new restify.InternalError('Failed to remove from MongoDB.'))
+    else if !post?
+      next(new restify.ResourceNotFoundError('Cannot find such document to remove.'))
+    else
+      Post.remove({ _id: post.id }).exec (err) ->
+        if err?
+          next(new restify.InternalError('Failed to remove from MongoDB.'))
+        else
+          res.send 200, post
+          next()
