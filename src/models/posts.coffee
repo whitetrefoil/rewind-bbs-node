@@ -21,6 +21,16 @@ postSchema = new mongoose.Schema
   content: String
   author: String
 
+postSchema.set 'toJSON',
+  getters: true
+  virtuals: true
+  transform: (doc, ret) ->
+    ret.id = ret._id
+    delete ret._id
+    delete ret.__v
+    ret
+
+
 #### Model
 mongoose.model 'Post', postSchema
 

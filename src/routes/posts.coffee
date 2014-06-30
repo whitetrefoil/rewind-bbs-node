@@ -21,7 +21,9 @@ restify = require '../server'
 #### API
 
 restify.get 'posts', (req, res, next) ->
-  mongo.model('Post').find().exec (err, posts) ->
+  model = mongo.model 'Post'
+  model.find()
+  .exec (err, posts) ->
     res.charSet 'utf-8'
     if err?
       res.send 500,
