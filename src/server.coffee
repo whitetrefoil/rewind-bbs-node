@@ -19,6 +19,11 @@ restify = require 'restify'
 server = restify.createServer
   name: 'RewindBBS'
 
+# Set the charset of response to 'utf-8'
+server.use (req, res, next) ->
+  res.charSet 'utf-8'
+  next()
+
 #### Exports
 
 # Export a created but not started server instance.
