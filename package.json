@@ -17,8 +17,8 @@
   "bin":             "./bin/rewind-bbs-node",
   "main":            "./lib/index.js",
   "scripts":         {
-    "start":      "node bin/rewind-bbs-node",
-    "test":       "grunt test"
+    "start": "node bin/rewind-bbs-node",
+    "test":  "grunt test"
   },
   "config":          {
     "blanket": {
@@ -40,13 +40,14 @@
     "grunt-docco":          "^0.3.3",
     "grunt-mkdir":          "^0.1.1",
     "grunt-mocha-cli":      "^1.9.0",
-    "sinon-chai":           "^2.5.0"
+    "sinon-chai":           "^2.5.0",
+    "supertest":            "^0.13.0"
   },
   "dependencies":    {
     "colors":   "^0.6.2",
     "fs-extra": "^0.10.0",
     "lodash":   "^2.4.1",
-    "mongoose": "^3.8.12",
+    "mongoose": "~3.8.12",
     "passport": "^0.2.0",
     "restify":  "^2.8.1"
   },

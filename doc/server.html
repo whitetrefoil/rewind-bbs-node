@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>server.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>server.coffee</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="models.html">
+                    models.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="mongo.html">
+                    mongo.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        <p>This module is used to initialized the server (using restify)</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        <p>‘use strict’ always first ;)</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
+
+        
+          <div class='highlight'><pre>
+restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'restify'</span></pre></div>
+        
+      
+        
+        <p>Create the server here.
+Later I will add code to load config.</p>
+
+        
+          <div class='highlight'><pre>
+server = restify.createServer
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'RewindBBS'</span></pre></div>
+        
+      
+        
+        <p>Set the charset of response to ‘utf-8’</p>
+
+        
+          <div class='highlight'><pre>server.use <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  res.charSet <span class="hljs-string">'utf-8'</span>
+  next()</pre></div>
+        
+      
+        
+        <h3 id="exports">Exports</h3>
+
+        
+      
+        
+        <p>Export a created but not started server instance.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = server</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

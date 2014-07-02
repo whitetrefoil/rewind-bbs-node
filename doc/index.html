@@ -17,20 +17,183 @@
         
 
         
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="models.html">
+                    models.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="mongo.html">
+                    mongo.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
       </div>
 
       
         
+        <h2 id="summary">Summary</h2>
+
         
+      
         
-          <div class='highlight'><pre><span class="hljs-string">'use strict'</span>
+        <p>This is the main file of the application.</p>
 
-<span class="hljs-function"><span class="hljs-title">index</span> = -&gt;</span>
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">'GO!'</span>
+        
+      
+        
+        <h2 id="code">Code</h2>
 
-<span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = index
+        
+      
+        
+        <p>‘use strict’ always first :)</p>
 
-<span class="hljs-keyword">if</span> <span class="hljs-built_in">require</span>.main <span class="hljs-keyword">is</span> <span class="hljs-built_in">module</span>
+        
+          <div class='highlight'><pre>
+<span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
+
+        
+          <div class='highlight'><pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre></div>
+        
+      
+        
+        <p>require the mongoose initializer</p>
+
+        
+          <div class='highlight'><pre>mongo = <span class="hljs-built_in">require</span> <span class="hljs-string">'./mongo'</span></pre></div>
+        
+      
+        
+        <p>require the mongoose lib</p>
+
+        
+          <div class='highlight'><pre>mongoose = <span class="hljs-built_in">require</span> <span class="hljs-string">'mongoose'</span></pre></div>
+        
+      
+        
+        <p>require all models</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">require</span> <span class="hljs-string">'./models'</span></pre></div>
+        
+      
+        
+        <p>require the restify server.</p>
+
+        
+          <div class='highlight'><pre>restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'./server'</span></pre></div>
+        
+      
+        
+        <p>require all routes.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">require</span> <span class="hljs-string">'./routes/misc/status'</span>
+<span class="hljs-built_in">require</span> <span class="hljs-string">'./routes/posts'</span></pre></div>
+        
+      
+        
+        <h3 id="entrance">Entrance</h3>
+
+        
+      
+        
+        <p>The main function</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-function"><span class="hljs-title">index</span> = -&gt;</span>
+  restify.listen <span class="hljs-number">2345</span>
+  util.log <span class="hljs-string">'Restify started on port 2345'</span></pre></div>
+        
+      
+        
+        <h1 id="-">#</h1>
+
+        
+          <div class='highlight'><pre>  Post = mongoose.model <span class="hljs-string">'Post'</span>
+  post = <span class="hljs-keyword">new</span> Post
+    <span class="hljs-attribute">summary</span>: <span class="hljs-string">'Test Post'</span>
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">'This is just a test.'</span>
+    <span class="hljs-attribute">author</span>: <span class="hljs-string">'Fran'</span>
+  post.save<span class="hljs-function"> -&gt;</span>
+    Post.find<span class="hljs-function"><span class="hljs-params">()</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(args...)</span> -&gt;</span>
+      <span class="hljs-built_in">console</span>.log args
+      mongo.disconnect()</pre></div>
+        
+      
+        
+        <h1 id="-">#</h1>
+
+        
+      
+        
+        <h3 id="exports">Exports</h3>
+
+        
+      
+        
+        <p>For the <code>bin/rewind-bbs-node</code> file.</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = index</pre></div>
+        
+      
+        
+        <p>If it’s run by node directly…</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-keyword">if</span> <span class="hljs-built_in">require</span>.main <span class="hljs-keyword">is</span> <span class="hljs-built_in">module</span>
   index(process.argv)</pre></div>
         
       

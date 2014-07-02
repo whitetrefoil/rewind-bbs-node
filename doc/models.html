@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>models.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>models.coffee</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="models.html">
+                    models.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="mongo.html">
+                    mongo.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        <p>Load all models under <code>src/models</code>.
+All <code>.js</code>, <code>.coffee</code>, <code>.litcoffee</code> files will be required.
+But files in sub-directory will <strong>NOT</strong> be required.</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        <p>‘use strict’ always first :)</p>
+
+        
+          <div class='highlight'><pre>
+<span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
+
+        
+          <div class='highlight'><pre>
+mongoose = <span class="hljs-built_in">require</span> <span class="hljs-string">'mongoose'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre></div>
+        
+      
+        
+        <p>Scan the <code>src/models</code> directory, then load the models.</p>
+
+        
+          <div class='highlight'><pre>
+<span class="hljs-keyword">if</span> fs.existsSync(<span class="hljs-string">'src/models'</span>) <span class="hljs-keyword">and</span> fs.statSync(<span class="hljs-string">'src/models'</span>).isDirectory()
+  fs.readdirSync<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'src/models'</span>)</span>.<span class="hljs-title">forEach</span> <span class="hljs-params">(model)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> path.extname(model).search <span class="hljs-regexp">/\.(?:js|coffee|litcoffee)/</span> &gt;= <span class="hljs-number">0</span>
+      <span class="hljs-built_in">require</span> <span class="hljs-string">"./models/<span class="hljs-subst">#{model}</span>"</span></pre></div>
+        
+      
+        
+        <h3 id="exports">Exports</h3>
+
+        
+      
+        
+        <p>There’s no need to export anything.
+<code>mongoose</code> will handle all the required models.</p>
+
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

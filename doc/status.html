@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>status.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>status.coffee</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="models.html">
+                    models.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="mongo.html">
+                    mongo.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        <p>This is a API to tell the status of server.</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        <p>‘use strict’ always first :)</p>
+
+        
+          <div class='highlight'><pre>
+<span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
+
+        
+          <div class='highlight'><pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre></div>
+        
+      
+        
+        <p>require the mongoose initializer</p>
+
+        
+          <div class='highlight'><pre>mongo = <span class="hljs-built_in">require</span> <span class="hljs-string">'../../mongo'</span></pre></div>
+        
+      
+        
+        <p>require the restify server.</p>
+
+        
+          <div class='highlight'><pre>restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'../../server'</span></pre></div>
+        
+      
+        
+        <h3 id="api">API</h3>
+
+        
+          <div class='highlight'><pre>
+restify.get <span class="hljs-string">'misc/status'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  res.charSet <span class="hljs-string">'utf-8'</span>
+  res.send <span class="hljs-number">200</span>,
+    <span class="hljs-attribute">server</span>: <span class="hljs-literal">true</span>
+  next()</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>
