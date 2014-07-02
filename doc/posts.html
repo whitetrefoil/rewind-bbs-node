@@ -132,15 +132,17 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
 
         
           <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">readReq</span> = <span class="hljs-params">(req, callback)</span> -&gt;</span>
+<span class="hljs-function"><span class="hljs-title">readReq</span> = <span class="hljs-params">(req, next, callback)</span> -&gt;</span>
   reqBody = <span class="hljs-string">''</span>
   req.setEncoding <span class="hljs-string">'utf8'</span>
   req.<span class="hljs-literal">on</span> <span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">(chunk)</span> -&gt;</span> reqBody += chunk
   req.<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>,<span class="hljs-function"> -&gt;</span>
     <span class="hljs-keyword">try</span>
       body = JSON.parse reqBody
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TypeError() <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> body <span class="hljs-keyword">isnt</span> <span class="hljs-string">'object'</span>
     <span class="hljs-keyword">catch</span> e
-      next(<span class="hljs-keyword">new</span> restify.InvalidArgumentError(<span class="hljs-string">'The request body cannot be parsed as a legal JSON object.'</span>))
+      next(<span class="hljs-keyword">new</span> restify.InvalidContentError(<span class="hljs-string">'The request body cannot be parsed as a legal JSON object.'</span>))
+      <span class="hljs-keyword">return</span>
     callback(body)?</pre></div>
         
       
@@ -191,7 +193,7 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
 
         
           <div class='highlight'><pre>server.post <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
-  readReq req, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
+  readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
     post = <span class="hljs-keyword">new</span> Post(body)
     post.save <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> err?
@@ -206,7 +208,7 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
 
         
           <div class='highlight'><pre>server.put <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
-  readReq req, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
+  readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
     id = req.params.id
     Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> err?

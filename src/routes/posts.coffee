@@ -24,15 +24,17 @@ server = require '../server'
 
 # Will be moved to separated file later.
 
-readReq = (req, callback) ->
+readReq = (req, next, callback) ->
   reqBody = ''
   req.setEncoding 'utf8'
   req.on 'data', (chunk) -> reqBody += chunk
   req.on 'end', ->
     try
       body = JSON.parse reqBody
+      throw new TypeError() if typeof body isnt 'object'
     catch e
-      next(new restify.InvalidArgumentError('The request body cannot be parsed as a legal JSON object.'))
+      next(new restify.InvalidContentError('The request body cannot be parsed as a legal JSON object.'))
+      return
     callback(body)?
 
 
@@ -65,7 +67,7 @@ server.get 'posts/:id', (req, res, next) ->
 
 #### Post
 server.post 'posts', (req, res, next) ->
-  readReq req, (body) ->
+  readReq req, next, (body) ->
     post = new Post(body)
     post.save (err) ->
       if err?
@@ -76,7 +78,7 @@ server.post 'posts', (req, res, next) ->
 
 #### PUT
 server.put 'posts/:id', (req, res, next) ->
-  readReq req, (body) ->
+  readReq req, next, (body) ->
     id = req.params.id
     Post.findById(id).exec (err, post) ->
       if err?
