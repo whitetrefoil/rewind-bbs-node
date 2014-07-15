@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>posts.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>posts.coffee</h1>
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="config.html">
+                    config.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="models.html">
+                    models.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="mongo.html">
+                    mongo.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="status.html">
+                    status.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="posts.html">
+                    posts.coffee
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="server.html">
+                    server.coffee
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+        
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        
+        
+      
+        
+        <p>This is a API of post model</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        
+        
+      
+        
+        <p>‘use strict’ always first :)</p>
+
+        
+          <div class='highlight'><pre>
+<span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
+
+        
+          <div class='highlight'><pre>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'restify'</span></pre></div>
+        
+      
+        
+        <p>require the mongoose initializer</p>
+
+        
+          <div class='highlight'><pre>mongo = <span class="hljs-built_in">require</span> <span class="hljs-string">'../mongo'</span></pre></div>
+        
+      
+        
+        <p>require the restify server.</p>
+
+        
+          <div class='highlight'><pre>server = <span class="hljs-built_in">require</span> <span class="hljs-string">'../server'</span></pre></div>
+        
+      
+        
+        <h3 id="helpers">Helpers</h3>
+
+        
+      
+        
+        <p>Will be moved to separated file later.</p>
+
+        
+          <div class='highlight'><pre>
+<span class="hljs-function"><span class="hljs-title">readReq</span> = <span class="hljs-params">(req, next, callback)</span> -&gt;</span>
+  reqBody = <span class="hljs-string">''</span>
+  req.setEncoding <span class="hljs-string">'utf8'</span>
+  req.<span class="hljs-literal">on</span> <span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">(chunk)</span> -&gt;</span> reqBody += chunk
+  req.<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>,<span class="hljs-function"> -&gt;</span>
+    <span class="hljs-keyword">try</span>
+      body = JSON.parse reqBody
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TypeError() <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> body <span class="hljs-keyword">isnt</span> <span class="hljs-string">'object'</span>
+    <span class="hljs-keyword">catch</span> e
+      next(<span class="hljs-keyword">new</span> restify.InvalidContentError(<span class="hljs-string">'The request body cannot be parsed as a legal JSON object.'</span>))
+      <span class="hljs-keyword">return</span>
+    callback(body)?</pre></div>
+        
+      
+        
+        <h3 id="used-models">Used Models</h3>
+
+        
+          <div class='highlight'><pre>Post = mongo.model <span class="hljs-string">'Post'</span></pre></div>
+        
+      
+        
+        <h3 id="api">API</h3>
+
+        
+      
+        
+        <h3 id="index">Index</h3>
+
+        
+          <div class='highlight'><pre>server.get <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  Post.find()
+  .exec <span class="hljs-function"><span class="hljs-params">(err, posts)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err?
+      next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
+    <span class="hljs-keyword">else</span>
+      res.send <span class="hljs-number">200</span>, posts
+      next()</pre></div>
+        
+      
+        
+        <h4 id="get">Get</h4>
+
+        
+          <div class='highlight'><pre>server.get <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  Post.findById(req.params.id)
+  .exec <span class="hljs-function"><span class="hljs-params">(err, posts)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err?
+      next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !posts?
+      next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Post not found.'</span>))
+    <span class="hljs-keyword">else</span>
+      res.send <span class="hljs-number">200</span>, posts
+      next()</pre></div>
+        
+      
+        
+        <h3 id="post">Post</h3>
+
+        
+          <div class='highlight'><pre>server.post <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
+    post = <span class="hljs-keyword">new</span> Post(body)
+    post.save <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err?
+        next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
+      <span class="hljs-keyword">else</span>
+        res.send <span class="hljs-number">201</span>, post
+        next()</pre></div>
+        
+      
+        
+        <h3 id="put">PUT</h3>
+
+        
+          <div class='highlight'><pre>server.put <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
+    id = req.params.id
+    Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err?
+        next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to locate the post in MongoDB.'</span>))
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !post?
+        next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Cannot find such post to update.'</span>))
+      <span class="hljs-keyword">else</span>
+        post.update<span class="hljs-function"><span class="hljs-params">(body)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, numberAffected, raw)</span> -&gt;</span>
+          <span class="hljs-keyword">if</span> err?
+            next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to modify in MongoDB.'</span>))
+          <span class="hljs-keyword">else</span>
+            res.send <span class="hljs-number">200</span>, raw <span class="hljs-keyword">or</span> post
+            next()</pre></div>
+        
+      
+        
+        <h3 id="delete">Delete</h3>
+
+        
+          <div class='highlight'><pre>server.del <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  id = req.params.id
+  Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err?
+      next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to remove from MongoDB.'</span>))
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !post?
+      next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Cannot find such post to remove.'</span>))
+    <span class="hljs-keyword">else</span>
+      Post.remove<span class="hljs-function"><span class="hljs-params">({ _id: post.id })</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> err?
+          next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to remove from MongoDB.'</span>))
+        <span class="hljs-keyword">else</span>
+          res.send <span class="hljs-number">200</span>, post
+          next()</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

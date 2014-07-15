@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>config.coffee</title>
+  <title>server.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -13,7 +13,7 @@
 
       <div class="header">
         
-          <h1>config.coffee</h1>
+          <h1>server.coffee</h1>
         
 
         
@@ -84,62 +84,72 @@
 
       
         
-        <p>‘use strict’ always first :)</p>
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        
+        
+      
+        
+        <p>This module is used to initialized the server (using restify)</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        
+        
+      
+        
+        <p>‘use strict’ always first ;)</p>
+
+        
+          <div class='highlight'><pre><span class="hljs-string">'use strict'</span></pre></div>
+        
+      
+        
+        <h3 id="dependencies">Dependencies</h3>
 
         
           <div class='highlight'><pre>
-<span class="hljs-string">'use strict'</span></pre></div>
+restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'restify'</span></pre></div>
         
       
         
-        <p>Require the external dependencies.</p>
+        <p>Create the server here.
+Later I will add code to load config.</p>
 
         
           <div class='highlight'><pre>
-fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs-extra'</span></pre></div>
+server = restify.createServer
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'RewindBBS'</span></pre></div>
         
       
         
-        <h2 id="main-functions">Main functions</h2>
+        <p>Set the charset of response to ‘utf-8’</p>
+
+        
+          <div class='highlight'><pre>server.use <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  res.charSet <span class="hljs-string">'utf-8'</span>
+  next()</pre></div>
+        
+      
+        
+        <h3 id="exports">Exports</h3>
 
         
       
         
-        
-        
-      
-        
-        <p>Get configurations by loading a config file.</p>
+        <p>Export a created but not started server instance.</p>
 
         
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">readConfigFileSync</span> = <span class="hljs-params">(path)</span> -&gt;</span> fs.readJsonSync path</pre></div>
-        
-      
-        
-        <p>Get default config.</p>
-
-        
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">getDefaultConfigSync</span> = <span class="hljs-params">()</span> -&gt;</span>
-  readConfigFileSync <span class="hljs-string">'config/config.default.json'</span></pre></div>
-        
-      
-        
-        <p>Main function, get all possible config files then combine the config.</p>
-
-        
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">getConfig</span> = -&gt;</span>
-  getDefaultConfigSync()</pre></div>
-        
-      
-        
-        <p>TODO</p>
-
-        
-          <div class='highlight'><pre>
-<span class="hljs-built_in">module</span>.exports = getConfig</pre></div>
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = server</pre></div>
         
       
       <div class="fleur">h</div>

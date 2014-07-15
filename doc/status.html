@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>config.coffee</title>
+  <title>status.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -13,7 +13,7 @@
 
       <div class="header">
         
-          <h1>config.coffee</h1>
+          <h1>status.coffee</h1>
         
 
         
@@ -84,6 +84,29 @@
 
       
         
+        <h2 id="summary">Summary</h2>
+
+        
+      
+        
+        
+        
+      
+        
+        <p>This is a API to tell the status of server.</p>
+
+        
+      
+        
+        <h2 id="code">Code</h2>
+
+        
+      
+        
+        
+        
+      
+        
         <p>‘use strict’ always first :)</p>
 
         
@@ -92,54 +115,37 @@
         
       
         
-        <p>Require the external dependencies.</p>
+        <h3 id="dependencies">Dependencies</h3>
 
         
           <div class='highlight'><pre>
-fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs-extra'</span></pre></div>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre></div>
         
       
         
-        <h2 id="main-functions">Main functions</h2>
+        <p>require the mongoose initializer</p>
 
         
-      
-        
-        
+          <div class='highlight'><pre>mongo = <span class="hljs-built_in">require</span> <span class="hljs-string">'../../mongo'</span></pre></div>
         
       
         
-        <p>Get configurations by loading a config file.</p>
+        <p>require the restify server.</p>
 
         
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">readConfigFileSync</span> = <span class="hljs-params">(path)</span> -&gt;</span> fs.readJsonSync path</pre></div>
+          <div class='highlight'><pre>restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'../../server'</span></pre></div>
         
       
         
-        <p>Get default config.</p>
+        <h3 id="api">API</h3>
 
         
           <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">getDefaultConfigSync</span> = <span class="hljs-params">()</span> -&gt;</span>
-  readConfigFileSync <span class="hljs-string">'config/config.default.json'</span></pre></div>
-        
-      
-        
-        <p>Main function, get all possible config files then combine the config.</p>
-
-        
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">getConfig</span> = -&gt;</span>
-  getDefaultConfigSync()</pre></div>
-        
-      
-        
-        <p>TODO</p>
-
-        
-          <div class='highlight'><pre>
-<span class="hljs-built_in">module</span>.exports = getConfig</pre></div>
+restify.get <span class="hljs-string">'misc/status'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+  res.charSet <span class="hljs-string">'utf-8'</span>
+  res.send <span class="hljs-number">200</span>,
+    <span class="hljs-attribute">server</span>: <span class="hljs-literal">true</span>
+  next()</pre></div>
         
       
       <div class="fleur">h</div>
