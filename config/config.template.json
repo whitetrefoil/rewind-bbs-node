@@ -1,0 +1,13 @@
+{
+  "server": {
+    "host": "my.host.name",
+    "port": 80
+  },
+  "mongo":  {
+    "host":     "localhost",
+    "port":     27017,
+    "db":       "RewindBBS",
+    "username": "set_to_null_if_no_auth",
+    "password": "set_to_null_if_no_auth"
+  }
+}
