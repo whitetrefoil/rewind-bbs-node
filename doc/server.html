@@ -82,6 +82,10 @@
         
       
         
+        
+        
+      
+        
         <p>This module is used to initialized the server (using restify)</p>
 
         
@@ -89,6 +93,10 @@
         
         <h2 id="code">Code</h2>
 
+        
+      
+        
+        
         
       
         
@@ -120,7 +128,7 @@ server = restify.createServer
         <p>Set the charset of response to ‘utf-8’</p>
 
         
-          <div class='highlight'><pre>server.use <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
+          <div class='highlight'><pre>server.use (req, res, next) -&gt;
   res.charSet <span class="hljs-string">'utf-8'</span>
   next()</pre></div>
         
@@ -134,7 +142,7 @@ server = restify.createServer
         <p>Export a created but not started server instance.</p>
 
         
-          <div class='highlight'><pre><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = server</pre></div>
+          <div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = server</pre></div>
         
       
       <div class="fleur">h</div>

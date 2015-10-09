@@ -31,17 +31,13 @@ require './routes/posts'
 index = ->
   restify.listen 2345
   util.log 'Restify started on port 2345'
-###
+
   Post = mongoose.model 'Post'
   post = new Post
     summary: 'Test Post'
     content: 'This is just a test.'
     author: 'Fran'
-  post.save ->
-    Post.find().exec (args...) ->
-      console.log args
-      mongo.disconnect()
-###
+  post.save()
 
 #### Exports
 

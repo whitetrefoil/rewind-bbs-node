@@ -82,6 +82,10 @@
         
       
         
+        
+        
+      
+        
         <p>This is a API of post model</p>
 
         
@@ -89,6 +93,10 @@
         
         <h2 id="code">Code</h2>
 
+        
+      
+        
+        
         
       
         
@@ -131,12 +139,12 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         <p>Will be moved to separated file later.</p>
 
         
-          <div class='highlight'><pre>
-<span class="hljs-function"><span class="hljs-title">readReq</span> = <span class="hljs-params">(req, next, callback)</span> -&gt;</span>
+          <div class='highlight'><pre><span class="hljs-function">
+<span class="hljs-title">readReq</span> = <span class="hljs-params">(req, next, callback)</span> -&gt;</span>
   reqBody = <span class="hljs-string">''</span>
   req.setEncoding <span class="hljs-string">'utf8'</span>
   req.<span class="hljs-literal">on</span> <span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">(chunk)</span> -&gt;</span> reqBody += chunk
-  req.<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>,<span class="hljs-function"> -&gt;</span>
+  req.<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>, <span class="hljs-function">-&gt;</span>
     <span class="hljs-keyword">try</span>
       body = JSON.parse reqBody
       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TypeError() <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> body <span class="hljs-keyword">isnt</span> <span class="hljs-string">'object'</span>
@@ -164,7 +172,7 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         
           <div class='highlight'><pre>server.get <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
   Post.find()
-  .exec <span class="hljs-function"><span class="hljs-params">(err, posts)</span> -&gt;</span>
+  .exec (err, posts) -&gt;
     <span class="hljs-keyword">if</span> err?
       next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
     <span class="hljs-keyword">else</span>
@@ -178,7 +186,7 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         
           <div class='highlight'><pre>server.get <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
   Post.findById(req.params.id)
-  .exec <span class="hljs-function"><span class="hljs-params">(err, posts)</span> -&gt;</span>
+  .exec (err, posts) -&gt;
     <span class="hljs-keyword">if</span> err?
       next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !posts?
@@ -195,7 +203,7 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
           <div class='highlight'><pre>server.post <span class="hljs-string">'posts'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
   readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
     post = <span class="hljs-keyword">new</span> Post(body)
-    post.save <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    post.save (err) -&gt;
       <span class="hljs-keyword">if</span> err?
         next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'MongoDB failed.'</span>))
       <span class="hljs-keyword">else</span>
@@ -210,13 +218,13 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
           <div class='highlight'><pre>server.put <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
   readReq req, next, <span class="hljs-function"><span class="hljs-params">(body)</span> -&gt;</span>
     id = req.params.id
-    Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
+    Post.findById(id).exec (err, post) -&gt;
       <span class="hljs-keyword">if</span> err?
         next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to locate the post in MongoDB.'</span>))
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !post?
         next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Cannot find such post to update.'</span>))
       <span class="hljs-keyword">else</span>
-        post.update<span class="hljs-function"><span class="hljs-params">(body)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, numberAffected, raw)</span> -&gt;</span>
+        post.update(body).exec (err, numberAffected, raw) -&gt;
           <span class="hljs-keyword">if</span> err?
             next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to modify in MongoDB.'</span>))
           <span class="hljs-keyword">else</span>
@@ -230,13 +238,13 @@ restify = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         
           <div class='highlight'><pre>server.del <span class="hljs-string">'posts/:id'</span>, <span class="hljs-function"><span class="hljs-params">(req, res, next)</span> -&gt;</span>
   id = req.params.id
-  Post.findById<span class="hljs-function"><span class="hljs-params">(id)</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err, post)</span> -&gt;</span>
+  Post.findById(id).exec (err, post) -&gt;
     <span class="hljs-keyword">if</span> err?
       next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to remove from MongoDB.'</span>))
     <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !post?
       next(<span class="hljs-keyword">new</span> restify.ResourceNotFoundError(<span class="hljs-string">'Cannot find such post to remove.'</span>))
     <span class="hljs-keyword">else</span>
-      Post.remove<span class="hljs-function"><span class="hljs-params">({ _id: post.id })</span>.<span class="hljs-title">exec</span> <span class="hljs-params">(err)</span> -&gt;</span>
+      Post.remove({ <span class="hljs-attribute">_id</span>: post.id }).exec (err) -&gt;
         <span class="hljs-keyword">if</span> err?
           next(<span class="hljs-keyword">new</span> restify.InternalError(<span class="hljs-string">'Failed to remove from MongoDB.'</span>))
         <span class="hljs-keyword">else</span>

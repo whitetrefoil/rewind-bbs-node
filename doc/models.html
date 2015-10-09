@@ -82,6 +82,10 @@
         
       
         
+        
+        
+      
+        
         <p>Load all models under <code>src/models</code>.
 All <code>.js</code>, <code>.coffee</code>, <code>.litcoffee</code> files will be required.
 But files in sub-directory will <strong>NOT</strong> be required.</p>
@@ -91,6 +95,10 @@ But files in sub-directory will <strong>NOT</strong> be required.</p>
         
         <h2 id="code">Code</h2>
 
+        
+      
+        
+        
         
       
         
@@ -117,7 +125,7 @@ path = <span class="hljs-built_in">require</span> <span class="hljs-string">'pat
         
           <div class='highlight'><pre>
 <span class="hljs-keyword">if</span> fs.existsSync(<span class="hljs-string">'src/models'</span>) <span class="hljs-keyword">and</span> fs.statSync(<span class="hljs-string">'src/models'</span>).isDirectory()
-  fs.readdirSync<span class="hljs-function"><span class="hljs-params">(<span class="hljs-string">'src/models'</span>)</span>.<span class="hljs-title">forEach</span> <span class="hljs-params">(model)</span> -&gt;</span>
+  fs.readdirSync(<span class="hljs-string">'src/models'</span>).forEach (model) -&gt;
     <span class="hljs-keyword">if</span> path.extname(model).search <span class="hljs-regexp">/\.(?:js|coffee|litcoffee)/</span> &gt;= <span class="hljs-number">0</span>
       <span class="hljs-built_in">require</span> <span class="hljs-string">"./models/<span class="hljs-subst">#{model}</span>"</span></pre></div>
         
